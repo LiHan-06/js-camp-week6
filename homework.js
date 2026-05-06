@@ -86,6 +86,21 @@ async function addToCart(productId, quantity) {
 	// 2. body 格式：{ data: { productId: "xxx", quantity: 1 } }
 	// 3. 記得設定 headers: { 'Content-Type': 'application/json' }
 	// 4. body 要用 JSON.stringify() 轉換
+	const response = await fetch(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/carts`,
+		{
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(
+				{
+				"data": {
+					productId,
+					quantity,
+				},
+			}),
+		},
+	);
+	const data = await response.json();
+	return data;
 }
 
 /**
@@ -99,6 +114,20 @@ async function updateCartItem(cartId, quantity) {
 	// 提示：
 	// 1. 發送 PATCH 請求
 	// 2. body 格式：{ data: { id: "購物車ID", quantity: 數量 } }
+	const response = await fetch(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/carts`,
+		{
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				data: {
+					id: cartId, 
+					quantity, 
+				},
+			}),
+		},
+	);
+	const data = await response.json();
+	return data;
 }
 
 /**
@@ -109,6 +138,13 @@ async function updateCartItem(cartId, quantity) {
 async function removeCartItem(cartId) {
 	// 請實作此函式
 	// 提示：發送 DELETE 請求到 /carts/{id}
+	const response = await fetch(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/carts/${cartId}`,
+		{
+			method: 'DELETE',
+		},
+	);
+	const data = await response.json();
+	return data;
 }
 
 /**
@@ -118,6 +154,13 @@ async function removeCartItem(cartId) {
 async function clearCart() {
 	// 請實作此函式
 	// 提示：發送 DELETE 請求到 /carts
+	const response = await fetch(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/carts/`,
+		{
+			method: 'DELETE',
+		},
+	);
+	const data = await response.json();
+	return data;
 }
 
 // ========================================
@@ -171,34 +214,76 @@ if (require.main === module) {
 
 		// 任務一測試
 		console.log("--- 任務一：基礎 fetch ---");
-		try {
-			const products = await getProducts();
-			console.log(
-				"getProducts:",
-				products ? `成功取得 ${products.length} 筆產品` : "回傳 undefined",
-			);
-		} catch (error) {
-			console.log("getProducts 錯誤:", error.message);
-		}
+		// try {
+		// 	const products = await getProducts();
+		// 	console.log(
+		// 		"getProducts:",
+		// 		products ? `成功取得 ${products.length} 筆產品` : "回傳 undefined",
+		// 	);
+		// } catch (error) {
+		// 	console.log("getProducts 錯誤:", error.message);
+		// }
+
+		// try {
+		// 	const cart = await getCart();
+		// 	console.log(
+		// 		"getCart:",
+		// 		cart ? `購物車有 ${cart.carts?.length || 0} 筆商品` : "回傳 undefined",
+		// 	);
+		// } catch (error) {
+		// 	console.log("getCart 錯誤:", error.message);
+		// }
+
+		// try {
+		// 	const result = await getProductsSafe();
+		// 	console.log(
+		// 		"getProductsSafe:",
+		// 		result?.success ? "成功" : result?.error || "回傳 undefined",
+		// 	);
+		// } catch (error) {
+		// 	console.log("getProductsSafe 錯誤:", error.message);
+		// }
+
+		// 任務二測試
+		console.log("--- 任務二：POST 請求 - 購物車操作 ---");
+		// try {
+		// 	const result = await addToCart("vVMs2pHTsS4RbIbXTtIN", 3);
+		// 	console.log(
+		// 		"addToCart:",
+		// 		result,
+		// 	);
+		// } catch (error) {
+		// 	console.log("addToCart 錯誤:", error.message);
+		// }
+
+		// try {
+		// 	const result = await updateCartItem("k1ltUxt0jhQ8d6UGntol", 1);
+		// 	console.log(
+		// 		"updateCartItem:",
+		// 		result,
+		// 	);
+		// } catch (error) {
+		// 	console.log("updateCartItem 錯誤:", error.message);
+		// }
+
+		// try {
+		// 	const result = await removeCartItem("k1ltUxt0jhQ8d6UGntol");
+		// 	console.log(
+		// 		"removeCartItem:",
+		// 		result,
+		// 	);
+		// } catch (error) {
+		// 	console.log("removeCartItem 錯誤:", error.message);
+		// }
 
 		try {
-			const cart = await getCart();
+			const result = await clearCart();
 			console.log(
-				"getCart:",
-				cart ? `購物車有 ${cart.carts?.length || 0} 筆商品` : "回傳 undefined",
+				"clearCart:",
+				result,
 			);
 		} catch (error) {
-			console.log("getCart 錯誤:", error.message);
-		}
-
-		try {
-			const result = await getProductsSafe();
-			console.log(
-				"getProductsSafe:",
-				result?.success ? "成功" : result?.error || "回傳 undefined",
-			);
-		} catch (error) {
-			console.log("getProductsSafe 錯誤:", error.message);
+			console.log("clearCart 錯誤:", error.message);
 		}
 
 		console.log("\n=== 測試結束 ===");
