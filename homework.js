@@ -172,13 +172,39 @@ async function clearCart() {
 
 1. HTTP 狀態碼的分類（1xx, 2xx, 3xx, 4xx, 5xx 各代表什麼）
    答：
+   1xx：資訊 回應
+   2xx：成功 回應
+   3xx：重新導向 訊息
+   4xx：用戶端錯誤 回應
+   5xx：伺服器錯誤 回應
 
 2. GET、POST、PATCH、PUT、DELETE 的差異
    答：
+   GET：取得資料
+   POST：建立資料
+   PATCH：部分資料更新
+   PUT：完整資料更新
+   DELETE：刪除資料
 
 3. 什麼是 RESTful API？
    答：
+   他是一種設計風格,RESTful 只是轉為形容詞,形容以此規範設計的 API
 
+   RESTful API 主要由三種元件組成：
+	1.Nouns 名詞：定義資源位置的 URL，每個資源在網路上都會有唯一的位置，就如每戶人家都有唯一的地址一樣。
+	2.Verbs 動詞：對資源要做的動作。
+	3.Content Types 資源呈現方式：API 資源可以以多種方式表現，最常用的是 JSON，較輕，也較好處理。
+
+   使用 RESTful 風格設計的 API，就有了以下幾種優點及限制：
+	1.有唯一的URL表示資源位置，統一的 API 接口。(Uniform Interface)
+	2.無狀態。(Stateless)
+	3.可更高效利用快取來提高回應速度 (Cachable)
+	4.分層系統架構 (Layered System)
+	5.客戶端服務器分離 (Client-Server)
+	6.充份利用 HTTP protocal(GET/POST/PUT/DELETE) (Manipulation of resources through representations)
+	7.可執行程式碼的設計，像是 JavaScript（非必要實作項目） Code-On-Demand (optional)
+
+	參考來源：https://medium.com/itsems-frontend/api-%E6%98%AF%E4%BB%80%E9%BA%BC-restful-api-%E5%8F%88%E6%98%AF%E4%BB%80%E9%BA%BC-a001a85ab638
 
 */
 
